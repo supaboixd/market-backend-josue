@@ -1,9 +1,8 @@
 package com.tecnm.merida.market_backend.domain.service;
 
 import com.tecnm.merida.market_backend.domain.Product;
-
 import com.tecnm.merida.market_backend.domain.repository.ProductoRepository;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-
+    @Autowired
     private ProductoRepository productoRepository;
 
     public List<Product> getAll() {
@@ -31,8 +30,14 @@ public class ProductService {
         return productoRepository.save(product);
     }
 
+    public Optional<Product> update(int productId, Product product) {
+        return getProduct(productId).map(existing -> {
+            product.setProductId(productId);
+            return productoRepository.save(product);
+        });
+    }
+
     public boolean delete(int productId) {
-        // Verificar que existe antes de borrar
         if (getProduct(productId).isPresent()) {
             productoRepository.delete(productId);
             return true;

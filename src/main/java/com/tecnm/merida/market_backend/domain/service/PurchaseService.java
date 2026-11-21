@@ -1,26 +1,30 @@
 package com.tecnm.merida.market_backend.domain.service;
 
-
 import com.tecnm.merida.market_backend.domain.Purchase;
 import com.tecnm.merida.market_backend.domain.repository.PurchaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PurchaseService {
-        private PurchaseRepository purchaseRepository;
 
-        public List<Purchase> getAll(){
-            return purchaseRepository.getAll();
-        }
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
-        public Optional<List<Purchase>> getByClient (String clienId){
-            return purchaseRepository.getByClient(clienId);
+    public List<Purchase> getAll() {
+        return purchaseRepository.getAll();
     }
 
-    public Purchase save (Purchase purchase){
-            return purchaseRepository.save(purchase);
+    public Optional<List<Purchase>> getByClient(String clientId) {
+        return purchaseRepository.getByClient(clientId);
+    }
+
+    @Transactional
+    public Purchase save(Purchase purchase) {
+        return purchaseRepository.save(purchase);
     }
 }

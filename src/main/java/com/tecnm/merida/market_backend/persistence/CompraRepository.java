@@ -4,7 +4,6 @@ import com.tecnm.merida.market_backend.domain.Purchase;
 import com.tecnm.merida.market_backend.domain.repository.PurchaseRepository;
 import com.tecnm.merida.market_backend.persistence.crud.CompraCrudRepository;
 import com.tecnm.merida.market_backend.persistence.entity.Compra;
-import com.tecnm.merida.market_backend.persistence.entity.CompraProducto;
 import com.tecnm.merida.market_backend.persistence.mapper.PurchaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,7 +34,9 @@ public class CompraRepository implements PurchaseRepository {
     @Override
     public Purchase save(Purchase purchase) {
         Compra compra = mapper.toCompra(purchase);
-        compra.getProdustos().forEach(product -> product.setCompra(compra));
+        if (compra.getProdustos() != null) {
+            compra.getProdustos().forEach(product -> product.setCompra(compra));
+        }
         return mapper.toPurchase(compraCrudRepository.save(compra));
     }
 }

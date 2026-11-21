@@ -2,11 +2,8 @@ package com.tecnm.merida.market_backend.persistence.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "compras_productos")
-
 public class CompraProducto {
 
     @EmbeddedId
@@ -16,6 +13,7 @@ public class CompraProducto {
     private Boolean estado;
 
     @ManyToOne
+    @MapsId("idCompra")
     @JoinColumn(name = "id_compra", insertable = false, updatable = false)
     private Compra compra;
 
@@ -70,5 +68,4 @@ public class CompraProducto {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-
 }

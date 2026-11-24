@@ -13,6 +13,7 @@ public class Cliente {
     private String apellidos;
     private Long celular;
     private String direccion;
+    private String password;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Compra> compras;
@@ -58,6 +59,14 @@ public class Cliente {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCorreoElectronico() {
